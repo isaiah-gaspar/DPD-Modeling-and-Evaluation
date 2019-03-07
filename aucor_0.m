@@ -19,7 +19,7 @@
 % 
 %     filename
 %     sheet number
-%     column name, for instance 'A:A' witll import all of column A.
+%     column name, for instance 'A:A' will import all of column A.
 %
 % *************************************************************************
 
@@ -27,7 +27,6 @@
 
 filename = 'throughdata_02_7_19.xls';
 sheet = 1;
-
 ra0 = 'A:A';
 
 %First column of measured data
@@ -44,12 +43,22 @@ leng = length(y)- 1;
 [normalizedACF, lags] = autocorr(y, 'NumLags', leng);
 unnormalizedACF = normalizedACF*var(y,1);
 
-figure
+figure(1)
 plot( lags, normalizedACF)
 
-str = sprintf('Autocorrelation of Measured Data: %s', filename);
-title(str)
+str = sprintf('Normalized ACF: %s in %s', filename, ra0);
+title(str, 'Interpreter', 'none')
 xlabel('Lag')
 ylabel('Autocorrelation')
+grid
+
+figure(2)
+plot( lags, unnormalizedACF)
+
+str = sprintf('Unnormalized ACF: %s in %s', filename, ra0);
+title(str, 'Interpreter', 'none')
+xlabel('Lag')
+ylabel('Autocorrelation')
+grid
 
 
